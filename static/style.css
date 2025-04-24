@@ -1,0 +1,335 @@
+/* Importa as fontes Poppins e Orbitron do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+/* Estilo base do corpo da página */
+body {
+  font-family: 'Poppins', sans-serif; /* Fonte principal */
+  background: linear-gradient(to bottom right, #1e1e2f, #3e2a5d, #1b1c38); /* Gradiente de fundo escuro */
+  background-attachment: fixed; /* Fundo fixo ao rolar */
+  margin: 0; /* Remove margens padrão */
+  padding: 0; /* Remove padding padrão */
+  color: #f0f0f5; /* Cor do texto padrão */
+  min-height: 100vh; /* Altura mínima 100% da viewport */
+  position: relative; /* Base para posicionamento relativo */
+  overflow-x: hidden; /* Evita rolagem lateral */
+}
+
+/* Container central com efeito de vidro (glassmorphism) */
+.container {
+  max-width: 720px;
+  margin: 40px auto; /* Centralizado verticalmente */
+  background: rgba(255, 255, 255, 0.06); /* Fundo translúcido */
+  backdrop-filter: blur(10px); /* Efeito de desfoque */
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.08); /* Sombra leve */
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Borda sutil */
+}
+
+/* Logo centralizada com sombra */
+.logo {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 180px; 
+  filter: drop-shadow(0 0 5px #aaaaff); /* Sombra brilhante */
+  transition: max-width 0.3s ease;
+}
+
+/* Título estilizado com fonte espacial */
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #ffd6f6;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Formulário vertical com espaçamento entre elementos */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Agrupamento de inputs com layout horizontal e responsivo */
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input-group label {
+  font-weight: bold;
+  color: #caa9ff;
+}
+
+/* Estilo dos inputs numéricos e selects */
+input[type="number"],
+select {
+  width: 80px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fefefe;
+  color: #333;
+}
+
+select {
+  width: 100px;
+}
+
+/* Esconde o input file padrão */
+input[type="file"] {
+  display: none;
+}
+
+/* Nome do arquivo selecionado */
+#nome-arquivo {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: -10px;
+}
+
+/* Botão customizado para upload de arquivos */
+.custom-upload-button {
+  background: linear-gradient(45deg, #ff7eb3, #ff758c, #9d50bb);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 14px;
+}
+
+.custom-upload-button:hover {
+  background: linear-gradient(45deg, #ff4ecb, #d66eff, #7e60ff);
+  transform: scale(1.05);
+}
+
+/* Botão de envio (submit) */
+.submit-button {
+  background: linear-gradient(45deg, #7f00ff, #e100ff);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: linear-gradient(45deg, #c850c0, #4158d0);
+  transform: scale(1.07);
+}
+
+/* Área de resultado do processamento */
+.resultado {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Estilo de sucesso */
+.sucesso {
+  background-color: rgba(180, 255, 220, 0.1);
+  border: 1px solid #7dffc3;
+  color: #a8ffdd;
+}
+
+/* Pré-visualização da imagem com borda */
+.preview {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  border: 2px solid white;
+}
+
+/* Imagem dentro da prévia */
+.preview img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Linhas verticais da grade (colunas) */
+.preview::before,
+.preview::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.preview::before {
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(100% / var(--cols) - 1px),
+    white calc(100% / var(--cols) - 1px),
+    white calc(100% / var(--cols))
+  );
+  z-index: 2;
+}
+
+/* Linhas horizontais da grade (linhas) */
+.preview::after {
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(100% / var(--rows) - 1px),
+    white calc(100% / var(--rows) - 1px),
+    white calc(100% / var(--rows))
+  );
+  z-index: 3;
+}
+
+/* Grade desenhada com divs (para traços) */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.grid-overlay div {
+  border: 1px dashed rgba(255, 255, 255, 0.4); /* Linhas tracejadas */
+}
+
+/* Link de download dos pedaços cortados */
+.download-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #fff;
+  background-color: #5e60ce;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.download-link:hover {
+  background-color: #7b7df0;
+  transform: scale(1.05);
+}
+
+/* Input para URL da imagem */
+.link-input {
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Botões de imprimir */
+#print-button,
+.print-button {
+  background: linear-gradient(45deg, #42e695, #3bb2b8);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+#print-button:hover,
+.print-button:hover {
+  background: linear-gradient(45deg, #32d9a5, #31c7cf);
+  transform: scale(1.05);
+}
+
+/* Canvas fixo de estrelas */
+#stars-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Estilos responsivos para telas pequenas */
+@media (max-width: 600px) {
+  .container {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input[type="number"],
+  select {
+    width: 100%;
+  }
+
+  .custom-upload-button,
+  .submit-button,
+  .print-button {
+    width: 100%;
+  }
+}
+
+/* Estilos para impressão */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .preview-wrapper,
+  .preview-wrapper * {
+    visibility: visible;
+  }
+
+  .preview-wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5cm;
+    page-break-inside: avoid;
+  }
+
+  .preview-wrapper img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    page-break-after: always;
+    border: 1px dashed #999;
+    margin-bottom: 1.5cm;
+  }
+}

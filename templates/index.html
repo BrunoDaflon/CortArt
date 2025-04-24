@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>CortArt - Divida sua imagem</title>
+
+  <!-- Importa o arquivo de estilo CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Canvas usado como fundo animado de estrelas -->
+  <canvas id="stars-canvas"></canvas>
+
+  <div class="container">
+    <!-- Logo do projeto -->
+    <img src="{{ url_for('static', filename='LogoCortArt.png') }}" alt="Logo CortArt" class="logo">
+    <h2>Transforme a sua arte!</h2>
+
+    <!-- Mostra mensagens de erro, se houver -->
+    {% if erro %}
+      <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+
+    <!-- Formulário para envio da imagem e configurações de corte -->
+    <form class="upload-form" method="post" enctype="multipart/form-data" autocomplete="off">
+      <!-- Botão personalizado para escolher arquivo -->
+      <label class="custom-upload-button" for="imagem">Escolher imagem</label>
+      <input type="file" name="image" id="imagem" accept="image/*">
+
+      <!-- Nome do arquivo selecionado aparece aqui -->
+      <span id="nome-arquivo">Nenhum arquivo selecionado</span>
+
+      <!-- Campo opcional para inserir URL da imagem -->
+      <input type="text" id="image-url" name="image_url" class="link-input" placeholder="Ou cole o link da imagem aqui">
+
+      <!-- Grupo de inputs para colunas, linhas e tamanho da folha -->
+      <div class="input-group">
+        <label for="cols">Colunas:</label>
+        <input type="number" id="cols" name="cols" value="2" min="1" required>
+
+        <label for="rows">Linhas:</label>
+        <input type="number" id="rows" name="rows" value="2" min="1" required>
+
+        <label for="paper_size">Tamanho da folha:</label>
+        <!-- Gera opções com base na lista enviada pelo backend -->
+        <select name="paper_size" id="paper_size">
+          {% for tamanho in tamanhos_papel %}
+            <option value="{{ tamanho }}" {% if tamanho == folha %}selected{% endif %}>{{ tamanho }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Botão para enviar o formulário -->
+      <button class="submit-button" type="submit">Enviar</button>
+    </form>
+
+    <!-- Se a imagem foi cortada com sucesso, exibe os resultados -->
+    {% if imagem_cortada %}
+      <div class="resultado">
+        <!-- Mostra o tamanho final da imagem cortada -->
+        <p><strong>Tamanho final:</strong> {{ tamanho }}</p>
+
+        <!-- Link para baixar os cortes em um arquivo ZIP -->
+        <a href="/download/{{ zip_file }}" class="download-link">📦 Baixar cortes em ZIP</a>
+
+        <!-- Link para acessar a tela de impressão dos cortes -->
+        <a href="/imprimir/{{ timestamp }}" class="print-button">🖨️ Imprimir cortes</a>
+      </div>
+
+      <!-- Pré-visualização da imagem com linhas de corte -->
+      <div class="preview-wrapper">
+        <div class="preview" style="--rows: {{ rows }}; --cols: {{ cols }}">
+          <!-- Imagem gerada com a grade de corte sobreposta -->
+          <img id="preview-img" src="{{ url_for('static', filename='uploads/' ~ preview_image) }}" alt="Pré-visualização">
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- JavaScript externo para interações (ex: atualizar nome do arquivo, animar fundo) -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

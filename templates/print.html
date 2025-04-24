@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Impressão - CortArt</title>
+
+    <!-- Estilo direto no head para facilitar visualização e controle de impressão -->
+    <style>
+        /* Estilo base da página */
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+            background: #111; /* fundo escuro no modo de visualização */
+            color: white;
+        }
+
+        /* Seção com botão de imprimir, visível só na tela */
+        .no-print {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .no-print button {
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        /* Cada "folha" que será impressa */
+        .page {
+            page-break-after: always; /* quebra de página após cada corte */
+            width: 21cm;              /* largura exata de uma folha A4 */
+            height: 29.7cm;           /* altura exata de uma folha A4 */
+            margin: 0 auto 1.5cm;     /* centraliza e dá espaçamento entre folhas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;  /* borda tracejada para corte */
+            background: white;        /* fundo branco para impressão */
+        }
+
+        /* Estilo da imagem dentro da folha */
+        .page img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: auto;
+        }
+
+        /* Estilo aplicado quando a página estiver no modo de impressão */
+        @media print {
+            body {
+                background: none;     /* fundo limpo na impressão */
+                color: black;
+            }
+
+            .no-print {
+                display: none;        /* esconde o botão de imprimir na impressão */
+            }
+
+            .page {
+                border: none;         /* remove a borda na impressão real */
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão de imprimir, aparece apenas na tela -->
+    <div class="no-print">
+        <button onclick="window.print()">🖨️ Imprimir</button>
+    </div>
+
+    <!-- Gera uma div .page para cada imagem cortada -->
+    {% for corte in cortes %}
+    <div class="page">
+        <!-- Cada corte é inserido aqui, um por página -->
+        <img src="{{ url_for('static', filename=corte) }}" alt="Corte">
+    </div>
+    {% endfor %}
+</body>
+</html>
