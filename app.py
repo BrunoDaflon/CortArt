@@ -176,5 +176,6 @@ def imprimir(folder):
     return render_template('print.html', cortes=imagens)
 
 # Inicia o servidor Flask
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))  # Render define a variável PORT
+    app.run(host="0.0.0.0", port=port)
