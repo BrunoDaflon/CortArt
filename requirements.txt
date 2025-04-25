@@ -2,3 +2,4 @@ flask==2.2.5
 pillow==9.5.0
 requests==2.31.0
 gunicorn==20.1.0
+waitress==2.1.2
