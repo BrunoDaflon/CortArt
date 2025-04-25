@@ -36,9 +36,6 @@ def index():
     # Tamanhos de papel disponíveis
     tamanhos_papel = {
         'A4': (21.0, 29.7),
-        'A3': (29.7, 42.0),
-        'A5': (14.8, 21.0),
-        'Letter': (21.6, 27.9)
     }
 
     # Se for um envio de formulário (POST)
@@ -49,7 +46,7 @@ def index():
             # Lê os valores do formulário (com valores padrão)
             cols = int(request.form.get('cols', 2))
             rows = int(request.form.get('rows', 2))
-            tamanho_folha = request.form.get('paper_size', 'A4')
+            tamanho_folha = 'A4'
 
             # Pega o arquivo de imagem enviado ou o link da imagem
             file = request.files.get('image')

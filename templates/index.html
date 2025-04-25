@@ -45,7 +45,7 @@
         <!-- Gera opções com base na lista enviada pelo backend -->
         <select name="paper_size" id="paper_size">
           {% for tamanho in tamanhos_papel %}
-            <option value="{{ tamanho }}" {% if tamanho == folha %}selected{% endif %}>{{ tamanho }}</option>
+            <option value="A4" selected>A4</option>
           {% endfor %}
         </select>
       </div>
