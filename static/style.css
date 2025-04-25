@@ -17,12 +17,11 @@ body {
 
 /* Container central com efeito de vidro (glassmorphism) */
 .container {
-  max-width: 100%; /* Usar 100% da largura da tela em dispositivos móveis */
-  width: 100%;
-  margin: 20px 10px; /* Ajuste da margem */
-  padding: 20px; /* Ajuste do padding */
+  max-width: 720px;
+  margin: 40px auto; /* Centralizado verticalmente */
   background: rgba(255, 255, 255, 0.06); /* Fundo translúcido */
   backdrop-filter: blur(10px); /* Efeito de desfoque */
+  padding: 30px 40px;
   border-radius: 20px;
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.08); /* Sombra leve */
   text-align: center;
@@ -33,7 +32,7 @@ body {
 .logo {
   display: block;
   margin: 0 auto 20px;
-  max-width: 150px; /* Reduzido para telas pequenas */
+  max-width: 180px; 
   filter: drop-shadow(0 0 5px #aaaaff); /* Sombra brilhante */
   transition: max-width 0.3s ease;
 }
@@ -60,7 +59,6 @@ h2 {
   gap: 20px;
   flex-wrap: wrap;
   align-items: center;
-  flex-direction: column; /* Empilha os elementos em telas pequenas */
 }
 
 .input-group label {
@@ -71,7 +69,7 @@ h2 {
 /* Estilo dos inputs numéricos e selects */
 input[type="number"],
 select {
-  width: 100%; /* Ocupa toda a largura da tela em dispositivos móveis */
+  width: 80px;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #888;
@@ -82,7 +80,7 @@ select {
 }
 
 select {
-  width: 100%;
+  width: 100px;
 }
 
 /* Esconde o input file padrão */
@@ -302,15 +300,6 @@ input[type="file"] {
   .submit-button,
   .print-button {
     width: 100%;
-    padding: 14px 0;
-  }
-
-  .logo {
-    max-width: 150px; /* Ajusta a logo para telas pequenas */
-  }
-
-  h2 {
-    font-size: 24px; /* Ajusta o tamanho da fonte do título */
   }
 }
 
